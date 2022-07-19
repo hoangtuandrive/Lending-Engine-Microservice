@@ -1,9 +1,14 @@
 package com.peerlender.lendingengine.domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.Duration;
 import java.util.Objects;
 
+@Entity
 public final class LoanRequest {
+    @Id
+    private long id;
     private final int amount;
     private final User borrower;
     private final Duration repaymentTerm;
