@@ -1,9 +1,11 @@
 package com.peerlender.lendingengine.application;
 
 import com.peerlender.lendingengine.application.model.LoanRequest;
+import com.peerlender.lendingengine.domain.model.LoanApplication;
 import com.peerlender.lendingengine.domain.model.User;
-import com.peerlender.lendingengine.domain.repository.LoanRequestRepository;
+import com.peerlender.lendingengine.domain.repository.LoanApplicationRepository;
 import com.peerlender.lendingengine.domain.repository.UserRepository;
+import com.peerlender.lendingengine.domain.service.LoanApplicationAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,18 +16,26 @@ import java.util.List;
 
 @RestController
 public class LoanController {
-    private LoanRequestRepository loanRequestRepository;
-    private UserRepository userRepository;
+    private final LoanApplicationRepository loanApplicationRepository;
+    private final UserRepository userRepository;
+    private final LoanApplicationAdapter loanApplicationAdapter;
 
     @Autowired //constructor-based injection
-    public LoanController(LoanRequestRepository loanRequestRepository, UserRepository userRepository) {
-        this.loanRequestRepository = loanRequestRepository;
+    public LoanController(LoanApplicationRepository loanApplicationRepository, UserRepository userRepository, LoanApplicationAdapter loanApplicationAdapter) {
+        this.loanApplicationRepository = loanApplicationRepository;
         this.userRepository = userRepository;
+        this.loanApplicationAdapter = loanApplicationAdapter;
     }
 
     @PostMapping(value = "/loan/request") //Endpoint
-    public void requestLoan(@RequestBody final LoanRequest loanApplication){
+    public void requestLoan(@RequestBody final LoanRequest loanRequest){
+//        LoanApplication loanApplication = loanApplicationAdapter.transform(loanRequest);
+        loanApplicationRepository.save(loanApplicationAdapter.transform(loanRequest));
+    }
 
+    @GetMapping(value = "/loan/requests" )
+    public List<LoanApplication> findAllLoanApplications(){
+        return loanApplicationRepository.findAll();
     }
 
     @GetMapping(value = "/users")

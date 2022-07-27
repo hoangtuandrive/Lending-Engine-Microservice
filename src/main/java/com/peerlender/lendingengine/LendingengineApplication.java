@@ -8,17 +8,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LendingEngineApplication implements CommandLineRunner {
+public class LendingengineApplication implements CommandLineRunner {
 	@Autowired //field-based injection
 	private UserRepository userRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(LendingEngineApplication.class, args);
+		SpringApplication.run(LendingengineApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		userRepository.save(new User(1,"testing","haha",19,"Fifa"));
+		userRepository.save(new User(1,"Tuan","Giang",19,"Worker"));
 		userRepository.save(new User(2, "Hung", "Tran", 20, "Student"));
 		userRepository.save(new User(3, "Dung", "Ngo", 25, "Teacher"));
 	}

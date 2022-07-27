@@ -41,6 +41,10 @@ public final class User {
         return occupation;
     }
 
+    public long getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,7 +68,5 @@ public final class User {
                 '}';
     }
 
-    public long getId() {
-        return id;
-    }
+
 }
