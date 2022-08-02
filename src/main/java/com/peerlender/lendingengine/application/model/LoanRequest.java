@@ -16,7 +16,8 @@ public class LoanRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoanRequest that = (LoanRequest) o;
-        return amount == that.amount && borrowerID == that.borrowerID && daysToRepay == that.daysToRepay && Double.compare(that.interestRate, interestRate) == 0;
+        return amount == that.amount && borrowerID == that.borrowerID && daysToRepay == that.daysToRepay &&
+                Double.compare(that.interestRate, interestRate) == 0;
     }
 
     @Override
