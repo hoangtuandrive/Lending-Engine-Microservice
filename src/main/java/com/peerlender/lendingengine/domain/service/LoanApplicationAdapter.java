@@ -20,13 +20,13 @@ public class LoanApplicationAdapter {
         this.userRepository = userRepository;
     }
 
-    public LoanApplication transform(LoanRequest req){
-        Optional<User> userOptional = userRepository.findById(req.getBorrowerID());
+    public LoanApplication transform(LoanRequest req, User borrower){
+        Optional<User> userOptional = userRepository.findById(borrower.getUsername());
         if(userOptional.isPresent()){
             return new LoanApplication(req.getAmount(), userOptional.get(),
                    req.getDaysToRepay(), req.getInterestRate());
         } else {
-            throw new UserNotFoundException(req.getBorrowerID());
+            throw new UserNotFoundException(borrower.getUsername());
         }
     }
 }
